@@ -5,7 +5,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components'
 import { auth, db } from '../firebase';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
 import getRecipientEmail from '../utils/getRecipientEmail';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Message from './Message'
@@ -15,6 +14,7 @@ import SendSharpIcon from '@material-ui/icons/SendSharp';
 import firebase from "firebase"
 import Timeago from 'timeago-react'
 import ArrowDownwardTwoToneIcon from '@material-ui/icons/ArrowDownwardTwoTone';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 
 
@@ -22,6 +22,9 @@ function ChatScreen({ chat, messages }) {
     const [user] = useAuthState(auth);
     const [input, setInput] = useState("");
     const router = useRouter();
+    const returnChat = () =>{
+        router.push(`/`)
+    }
     const endOfMessagesRef = useRef(null);
     const [messagesSnapshot] = useCollection(db.collection("chats").doc(router.query.id).collection("messages").orderBy("timestamp","asc"));
     const [recipientSnapshot] = useCollection(
@@ -107,7 +110,7 @@ function ChatScreen({ chat, messages }) {
                 </HeaderInformation>
                 <ButtonArea>
                     <IconButton>
-                        <AttachFileIcon />
+                        <KeyboardBackspaceIcon onClick={returnChat}/>
                     </IconButton>
                     <IconButton>
                         <MoreVertIcon />
