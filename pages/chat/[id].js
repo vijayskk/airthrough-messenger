@@ -15,14 +15,14 @@ function Chat({ chat, messages }) {
                 <title>Chat with {getRecipientEmail(chat.users,user)}</title>
             </Head>
                 
-            <Sidebar />
+            <Sidebarcontainer><Sidebar classname="sidebarmobile" /></Sidebarcontainer>
             <ChatContainer>
                 <ChatScreen chat={chat} messages = {messages} />
             </ChatContainer>
         </Container>
 
     )
-}
+} 
 
 export default Chat
 
@@ -72,5 +72,14 @@ height:100vh;
 }
 -ms-overflow-style:none;
 scrollbar-width:none;
+
+`;
+
+const Sidebarcontainer = styled.div`
+width:20%;
+min-width:300px;
+@media (max-width: 600px) {
+    display:none;
+}
 
 `;

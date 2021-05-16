@@ -154,7 +154,9 @@ const HeaderInformation = styled.div`
 >h3{
     text-transform : uppercase;
     margin-bottom : 5px;
-    
+    @media (max-width: 600px) {
+    font-size:15px;
+}
 }
 >p{
     padding-top:0px;
@@ -191,6 +193,7 @@ position : sticky;
 bottom:0;
 background-color:white;
 z-index: 100;
+width:100%;
 
 `;
 

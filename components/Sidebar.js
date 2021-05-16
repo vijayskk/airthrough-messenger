@@ -77,7 +77,7 @@ export default Sidebar
 const Container = styled.div`
 flex:0.45;
 height: 100vh;
-width:20%;
+width:100%;
 max-width: 350px;
 overflow-y:scroll;
   ::-webkit-scrollbar{

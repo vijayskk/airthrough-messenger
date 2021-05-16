@@ -53,6 +53,8 @@ transition: 0.5s;
     background-color: rgb(209, 194, 192);
 }
 
+}
+
 `;
 
 const UserAvatar =styled(Avatar)`
