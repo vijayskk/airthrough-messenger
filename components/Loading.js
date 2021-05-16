@@ -1,19 +1,32 @@
 import styled from 'styled-components'
 import { Circle } from "better-react-spinkit";
 
+
+
+
 function Loading() {
     return (
-   <center style={{ display: "grid" , placeItems:"center", hieght:"100vh" }}>
-   <div>
-       <img src="https://image.freepik.com/free-vector/chat-logo-design_93835-108.jpg"
-       alt=""
-       style={{marginBottom: 10 }}
-       height={200}
-       />
-       <Circle color="black" size={60} />
-   </div>
-   </center>
+    <Alldiv>
+        <Loadingdiv>
+            <center><Circle color="white" size={60} /></center>
+        </Loadingdiv>
+    </Alldiv>
     ) 
 }
 
 export default Loading
+
+const Loadingdiv = styled.div`
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  
+`;
+
+const Alldiv = styled.div`
+
+  
+`;

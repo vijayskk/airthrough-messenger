@@ -13,6 +13,7 @@ function Chat({id,users}) {
 
     const [user] = useAuthState(auth);
     const recipientemail = getRecipientEmail(users , user)
+
     const [recipientSnapshot] = useCollection(
         db.collection('users').where('email','==',getRecipientEmail(users,user))
     ) 
@@ -43,16 +44,20 @@ export default Chat
 
 const Container =styled.div`
 display : flex;
-margin-top: 15px;
 align-items: center;
 cursor : pointer;
 padding:15px;
+background-color: #000000;
 word-break: break-word;
 transition: 0.5s;
 :hover{
-    background-color: rgb(209, 194, 192);
+    background-color: #a35709;
+
 }
 
+
+>p{
+    color:#f0e3ca;
 }
 
 `;

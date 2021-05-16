@@ -39,12 +39,12 @@ const MessageElement = styled.p`
 const Sender = styled(MessageElement)`
     margin-left:auto;
     text-align:center;
-    background-color: #dcf8c6;
+    background-color: #f7a440;
     border-bottom-right-radius:0px;
 `;
 
 const Reciever = styled(MessageElement)`
-    background-color: whitesmoke;
+    background-color: #f6dcbf;
     text-align: center;
     border-bottom-left-radius:0px;
 `;

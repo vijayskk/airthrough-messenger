@@ -77,6 +77,7 @@ scrollbar-width:none;
 
 const Sidebarcontainer = styled.div`
 width:20%;
+max-width: 350px;
 min-width:300px;
 @media (max-width: 600px) {
     display:none;

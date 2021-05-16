@@ -43,23 +43,23 @@ function Sidebar() {
         <UserAvatar src={user.photoURL} />
         <IconContainer>
             <IconButton>
-                <ChatIcon /> 
+                <ChatIcon style={{ fill: '#f0e3ca' }}/> 
             </IconButton>
             <IconButton>
-                <MoreVertIcon />
+                <MoreVertIcon style={{ fill: '#f0e3ca' }}/>
             </IconButton>
             <IconButton>
-                <SettingsIcon /> 
+                <SettingsIcon style={{ fill: '#f0e3ca' }}/> 
             </IconButton>    
             <IconButton>
-                <ExitToAppIcon onClick={() => auth.signOut()} /> 
+                <ExitToAppIcon onClick={() => auth.signOut()} style={{ fill: '#f0e3ca' }}/> 
             </IconButton>    
         </IconContainer>
         </Header>
-        <Search>
+        {/* <Search>
         <SearchIcon />
         <SearchInput placeholder="Search In Chats " />
-        </Search>
+        </Search> */}
         <ButtonArea>
         <SidebarButton onClick={createChat}>+ Start a new Chat</SidebarButton>
         </ButtonArea>
@@ -79,6 +79,8 @@ flex:0.45;
 height: 100vh;
 width:100%;
 max-width: 350px;
+min-width:300px;
+background-color:black;
 overflow-y:scroll;
   ::-webkit-scrollbar{
       display:none;
@@ -86,7 +88,13 @@ overflow-y:scroll;
 
   -ms-overflow-style:none;
   scrollbar-width:none;
-
+z-index:100;
+@media (max-width: 800px) {
+    max-width:1000px;
+    }
+@media (max-width: 1300px) {
+    min-width:300px;
+}
 `;
 
 const Header = styled.div`
@@ -94,13 +102,13 @@ const Header = styled.div`
 display : flex;
 position : sticky;
 top: 0;
-background-color : white;
+background-color : #1b1a17;
 z-index: 1;
 justify-content : space-between;
 align-items : center;
 padding : 15px;
 height : 80px;
-border-bottom : 1px solid whitesmoke;
+border-bottom : 1px solid black;
 `;
 
 const UserAvatar = styled(Avatar)`
@@ -119,23 +127,32 @@ const Search = styled.div`
  display : flex;
  align-items : center;
  padding: 20px;
- border-radius : 5px;
+ background-color:#ff8303;
 `;
 const SearchInput = styled.input`
 outline-width: 0;
 border : none;
 flex : 1;
+background-color:#ff8303;
+color:black;
+::placeholder{
+    color:black;
+}
 `;
 
 const ButtonArea = styled.div`
-
+border-top:1px solid black;
+background-color:#ff8303;
+border : 0px solid;
+border-radius: 20px;
 `;
 
 const SidebarButton = styled(Button)`
 
 width: 100%;
 font-size: 20px;
-border : none;
+
+
 
 `; 
 

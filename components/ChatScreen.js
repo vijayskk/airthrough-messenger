@@ -4,18 +4,15 @@ import { useRouter } from 'next/router';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import styled from 'styled-components'
 import { auth, db } from '../firebase';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import getRecipientEmail from '../utils/getRecipientEmail';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Message from './Message'
-import { InsertEmoticon } from '@material-ui/icons';
-import MicIcon from '@material-ui/icons/Mic'
 import SendSharpIcon from '@material-ui/icons/SendSharp';
 import firebase from "firebase"
 import Timeago from 'timeago-react'
 import ArrowDownwardTwoToneIcon from '@material-ui/icons/ArrowDownwardTwoTone';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 function ChatScreen({ chat, messages }) {
@@ -24,6 +21,14 @@ function ChatScreen({ chat, messages }) {
     const router = useRouter();
     const returnChat = () =>{
         router.push(`/`)
+    }
+    const deleteChat = async()=>{
+        if (confirm("Do you want to delete this chat??...This cannot be undone")) {
+            const id=router.query
+            console.log(id.id)
+            await db.collection('chats').doc(id.id).delete();
+            router.push(`/`)
+          } 
     }
     const endOfMessagesRef = useRef(null);
     const [messagesSnapshot] = useCollection(db.collection("chats").doc(router.query.id).collection("messages").orderBy("timestamp","asc"));
@@ -85,6 +90,8 @@ function ChatScreen({ chat, messages }) {
     const recipient = recipientSnapshot?.docs?.[0]?.data();
     console.log(recipient?.lastSeen);
     const recipientEmail = getRecipientEmail(chat.users,user)
+    const realname= getRecipientEmail(chat.users,user)
+    const displayname= realname.replace('@gmail.com','')
     return (
         <Container>
             <Header>
@@ -96,24 +103,24 @@ function ChatScreen({ chat, messages }) {
                     )}
                 </Avatardiv>
                 <HeaderInformation>
-                    <h3>{getRecipientEmail(chat.users,user)}</h3>
+                    <h3>{displayname}</h3>
                     {recipientSnapshot ?(
-                        <p className = "last-seen">last seen: {'  '}
+                        <p >last seen: {'  '}
                         {recipient?.lastSeen?.toDate() ? (
                             <Timeago minPeriod="0" datetime={recipient?.lastSeen?.toDate()} />
                         ):"Unavailable"}
                         </p>
                     ):(
-                        <p className = "last-seen">Loading...</p>
+                        <p>Loading...</p>
                     )}
                     
                 </HeaderInformation>
                 <ButtonArea>
                     <IconButton>
-                        <KeyboardBackspaceIcon onClick={returnChat}/>
+                        <KeyboardBackspaceIcon onClick={returnChat} style={{ fill: '#000000' }}/>
                     </IconButton>
                     <IconButton>
-                        <MoreVertIcon />
+                        <DeleteForeverIcon onClick={deleteChat} style={{ fill: '#000000' }}/>
                     </IconButton>
                 </ButtonArea>
             </Header>
@@ -124,10 +131,10 @@ function ChatScreen({ chat, messages }) {
             
             </MessageContainer>
             <InputContainer>
-                <Emoji><IconButton onClick={scrollToBottom}><ArrowDownwardTwoToneIcon /></IconButton></Emoji>
+                <Emoji><IconButton onClick={scrollToBottom}><ArrowDownwardTwoToneIcon style={{ fill: '#000000' }}/></IconButton></Emoji>
                 <Minput value={input} onChange={e => setInput(e.target.value)} />
-                <IconButton disabled={!input} type="submit" onClick={sendMessage}>
-                    <SendSharpIcon />
+                <IconButton disabled={!input} type="submit" onClick={sendMessage} style={{ fill: '#000000' }}>
+                    <SendSharpIcon style={{ fill: '#000000' }}/>
                 </IconButton>
                 
             </InputContainer> 
@@ -148,8 +155,8 @@ top: 0; /* Position the navbar at the top of the page */
 width: 100%; /* Full width */
 display : flex;
 align-items : center;
-border-bottom : 1px solid whitesmoke;
-background-color : #f3f6f6;
+border-bottom : 0px solid whitesmoke;
+background-color : #FFAC3A;
 z-index: 100;
 `;
 
@@ -159,13 +166,24 @@ const HeaderInformation = styled.div`
     margin-bottom : 5px;
     @media (max-width: 600px) {
     font-size:15px;
-}
+    }
+    @media (max-width: 400px) {
+    font-size:15px;
+    }
+    @media (max-width: 300px) {
+    display:none;
+    }
 }
 >p{
     padding-top:0px;
     margin-top:0px;
+    @media (max-width: 400px) {
+    font-size:12px;
+    }
+    @media (max-width: 300px) {
+    display:none;
+    }
 }
-
 `; 
 
 const Avatardiv = styled.div`
@@ -173,13 +191,16 @@ padding : 20px
 `;
 
 const ButtonArea = styled.div`
-margin-left:20px;   
-z-index:100;
+float:right;
+@media (max-width: 600px) {
+    margin-left:20px;   
+    z-index:100;
+}
 `;
 
 const MessageContainer = styled.div`
 padding : 30px;
-background-color: #e5ded8;
+background-color: #000000;
 min-height:100vh;
 padding-bottom:60px;
 padding-top:75px;
@@ -194,7 +215,7 @@ align-items:center;
 padding:10px;
 position : sticky;
 bottom:0;
-background-color:white;
+background-color:#ff8303;
 z-index: 100;
 width:100%;
 
@@ -208,7 +229,7 @@ const Minput = styled.input`
 float : right;
 flex:1;
 position:sticky;
-background-color:whitesmoke;
+background-color:#6F3501;
 border:none;
 border-radius : 15px;
 padding : 15px;
